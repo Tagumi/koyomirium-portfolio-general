@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>クラゲゲーム | KOYOMIRIUM</title>
+  <link rel="icon" href="/icon.png">
+  <link rel="stylesheet" href="/kurage-placeholder.css">
+</head>
+<body>
+  <main class="kurage-page">
+    <header class="kurage-header">
+      <button type="button" aria-label="画面を閉じる" onclick="closeFloor()">×</button>
+      <a class="kurage-logo-link" href="/" target="_top" aria-label="最初のタイトル画面へ戻る"><img class="kurage-logo" src="/koyomirium-logo.png" alt="KOYOMI RIUM PORTFOLIO"></a>
+      <img class="kurage-floor-label" src="/works-text/kurage-floor.png" alt="ミニゲーム">
+    </header>
+    <section class="kurage-hero">
+      <span class="kurage-bubbles" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <img class="kurage-title" src="/works-text/kurage-hero.png" alt="ふれあいコーナー">
+      <span class="kurage-note"><img src="/works-text/kurage-play-lead.png" alt="浪漫あふれる海月世界"></span>
+    </section>
+    <section class="kurage-games" aria-label="遊べるクラゲゲーム">
+      <article class="kurage-game-card">
+        <div class="kurage-game-frame"><iframe src="/kurage-games/kurage-puzzle-image.html" title="くらげぷかぷかをプレイ" loading="eager" scrolling="no" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      </article>
+      <article class="kurage-game-card">
+        <div class="kurage-game-frame"><iframe src="/kurage-games/kurage-evolution-image.html" title="くらげ育成日記をプレイ" loading="eager" scrolling="no" sandbox="allow-scripts allow-same-origin"></iframe></div>
+      </article>
+    </section>
+    <footer class="kurage-footer">
+      <button type="button" aria-label="画面を閉じる" onclick="closeFloor()">×</button>
+      <img src="/works-text/footer-brand.png" alt="KOYOMIRIUM PORTFOLIO">
+    </footer>
+  </main>
+  <script>function closeFloor(){if(window.parent!==window){window.parent.postMessage({type:'close-kurage'},window.location.origin)}else{location.href='/?skipIntro=1'}}
+  window.addEventListener('message',function(e){if(e.data&&e.data.type==='kurage-evolved'&&window.parent!==window){window.parent.postMessage({type:'kurage-evolved'},window.location.origin)}});</script>
+</body>
+</html>
