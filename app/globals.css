@@ -662,7 +662,6 @@
 
 /* Photoshop / game-graphics showcase */
 .figma-zone{position:relative}
-.figma-section-number{color:#ff7c86;font:900 25px/1 "Courier New",monospace;text-shadow:2px 2px 0 #4f1b35}
 .figma-intro{margin-bottom:25px}
 .figma-card{display:grid;grid-template-rows:187px 50px 1fr;padding:0;overflow:hidden;color:inherit;text-decoration:none;cursor:pointer}
 .figma-card .photoshop-thumb{background:#f7f8fa}.figma-card .photoshop-thumb img{object-fit:cover;object-position:top}.figma-card-title{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;width:calc(100% + 14px);height:50px;min-height:50px;margin:0 -7px;padding:7px 9px;color:#fff;background:#020817;border-top:4px solid #fff;box-shadow:inset 0 0 0 3px #07557a;font-size:12px;font-weight:900;line-height:1.25;letter-spacing:.04em;text-align:center}.figma-card-title i{font-style:normal;color:#ffdc68;font-size:10px;animation:nav-caret-blink .85s steps(1,end) infinite}.figma-card:focus-visible{outline:3px solid #ffdc68;outline-offset:-3px}

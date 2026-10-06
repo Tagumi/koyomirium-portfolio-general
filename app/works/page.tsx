@@ -117,7 +117,7 @@ export default function WorksPage() {
 
       <div className="works-floor">
         <section className="works-zone figma-zone">
-          <header><span className="figma-section-number">01</span><h2>Figma</h2><span>UI / UX IMPROVEMENT</span></header>
+          <header><h2>Figma</h2></header>
           <div className="photoshop-intro figma-intro">
             <p>LINEマーケティングツールのリッチメニュー作成導線を見直した、UI／UX改善のデザイン案です。</p>
             <span>現在地と完了までのステップが分かるように情報を整理し、Figmaで制作しました。</span>
