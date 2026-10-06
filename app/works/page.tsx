@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 type LightboxItem = {
-  type: "image" | "video" | "page" | "photoshop";
+  type: "image" | "photoshop";
   src: string;
   title: string;
   variant?: "line" | "ec";
@@ -12,9 +12,6 @@ type LightboxItem = {
   operations?: string[];
   ingenuity?: string;
   download?: string;
-  startTime?: number;
-  videoKey?: string;
-  cropCredit?: boolean;
 };
 
 const photoshopWorks: LightboxItem[] = [
@@ -55,19 +52,7 @@ const lineWorks = [
   { src: "/portfolio-assets/line-stickers-02.png", title: "コジマだよ。", text: "line-02.png", url: "https://store.line.me/stickershop/product/1398629/ja" },
   { src: "/portfolio-assets/line-stickers-03.png", title: "ネオ北海道弁", text: "line-03.png", url: "https://store.line.me/stickershop/product/1096139/ja" },
 ];
-const lpWorks = [
-  { title: "和風居酒屋LP制作", url: "https://tagumi.github.io/kiwami-lp/", text: "izakaya.png" },
-  { title: "カフェバーLP制作", url: "https://tagumi.github.io/kaguya-hp/", text: "cafe.png" },
-];
-const ecWorks = [
-  { title: "EC画像（旅行アカウント）", image: "/portfolio-assets/canva-portfolio.png", text: "canva.png" },
-  { title: "EC画像（アロマブランド）", image: "/portfolio-assets/product-3.png", text: "ec02.png" },
-  { title: "EC画像（楽天用）", image: "/portfolio-assets/rakuten-ec.png", text: "ec-rakuten.png" },
-];
-const videoWorks = [
-  { title: "リール動画（アロマブランド）", video: "/portfolio-assets/reel-sample-02.mp4", text: "reel02.png", cropCredit: true },
-  { title: "TikTok動画（コスメ）", video: "/portfolio-assets/reel-sample-03.mp4", text: "reel03.png", cropCredit: false, poster: "/portfolio-assets/reel-sample-03-poster-18s-clean.png" },
-];
+const figmaPortfolioUrl = "https://www.figma.com/design/SDmbKzYChcTUYC5ktUR1lm/Figma_%E3%83%9D%E3%83%BC%E3%83%88%E3%83%95%E3%82%A9%E3%83%AA%E3%82%AA?node-id=0-1&m=dev&t=x393Eoole451voW2-1";
 
 function TextImage({ file, alt, className = "" }: { file: string; alt: string; className?: string }) {
   return <img className={`works-text-image ${className}`} src={`/works-text/${file}`} alt={alt} />;
@@ -79,30 +64,8 @@ function Plate({ file, title, storeUrl }: { file: string; title: string; storeUr
 
 export default function WorksPage() {
   const [lightbox, setLightbox] = useState<LightboxItem | null>(null);
-  const inlineVideoRefs = useRef<Record<string, HTMLVideoElement | null>>({});
-  const expandedVideoRef = useRef<HTMLVideoElement | null>(null);
 
-  const closeLightbox = () => {
-    if (lightbox?.type === "video" && lightbox.videoKey && expandedVideoRef.current) {
-      const inlineVideo = inlineVideoRefs.current[lightbox.videoKey];
-      if (inlineVideo) inlineVideo.currentTime = expandedVideoRef.current.currentTime;
-    }
-    setLightbox(null);
-  };
-
-  const openVideo = (work: typeof videoWorks[number]) => {
-    const inlineVideo = inlineVideoRefs.current[work.video];
-    const startTime = inlineVideo?.currentTime ?? 0;
-    Object.values(inlineVideoRefs.current).forEach((video) => video?.pause());
-    setLightbox({
-      type: "video",
-      src: work.video,
-      title: work.title,
-      startTime,
-      videoKey: work.video,
-      cropCredit: work.cropCredit,
-    });
-  };
+  const closeLightbox = () => setLightbox(null);
 
   useEffect(() => {
     const close = (event: KeyboardEvent) => event.key === "Escape" && closeLightbox();
@@ -153,8 +116,20 @@ export default function WorksPage() {
       </section>
 
       <div className="works-floor">
+        <section className="works-zone figma-zone">
+          <header><span className="figma-section-number">01</span><h2>Figma</h2><span>UI / UX IMPROVEMENT</span></header>
+          <a className="figma-card" href={figmaPortfolioUrl} target="_blank" rel="noreferrer">
+            <div>
+              <span className="figma-card-label">LINE MARKETING TOOL</span>
+              <h3>LINEマーケティングツール<br />修正デザイン案</h3>
+              <p>リッチメニュー作成の導線を見直し、現在地と完了までのステップが分かるように設計した改善案です。</p>
+            </div>
+            <span className="figma-card-cta">Figmaで見る ↗</span>
+          </a>
+        </section>
+
         <section className="works-zone photoshop-zone">
-          <header><TextImage file="section-photoshop.png" alt="01 Photoshop" /></header>
+          <header><TextImage file="section-photoshop.png" alt="02 Photoshop" /></header>
           <div className="photoshop-intro">
             <p>ゲーム運営で発生する「告知・ゲーム内UI・キャラクター差分」という、異なる3種類の画像制作業務を想定した自主制作です。</p>
             <span>素材加工・配置、文字装飾、UI設計、ピクセル編集、PSDのレイヤー整理までPhotoshopで行いました。</span>
@@ -172,7 +147,7 @@ export default function WorksPage() {
         </section>
 
         <section className="works-zone">
-          <header><TextImage file="section-line.png" alt="02 LINEスタンプ" /></header>
+          <header><TextImage file="section-line.png" alt="03 LINEスタンプ" /></header>
           <div className="works-grid works-grid-line">
             {lineWorks.map((work) => <article className="work-tank line-card" key={work.src}>
               <button className="work-media-button line-media" onClick={() => setLightbox({ type: "image", src: work.src, title: work.title, variant: "line" })} aria-label={`${work.title}を拡大表示`}><img src={work.src} alt="" /></button>
@@ -181,53 +156,14 @@ export default function WorksPage() {
           </div>
         </section>
 
-        <section className="works-zone">
-          <header><TextImage file="section-lp.png" alt="03 LP" /><TextImage file="note.png" alt="※納品時の商品名・店名・ロゴなどは一部改変しております" className="section-disclaimer" /></header>
-          <div className="works-grid">
-            {lpWorks.map((work) => <article className="work-tank" key={work.title}>
-              <button className="work-media-button lp-window" onClick={() => setLightbox({ type: "page", src: work.url, title: work.title })} aria-label={`${work.title}を拡大表示`}><iframe src={work.url} title="" tabIndex={-1} loading="lazy" /></button>
-              <Plate file={work.text} title={work.title} />
-            </article>)}
-          </div>
-        </section>
-
-        <section className="works-zone">
-          <header><TextImage file="section-ec.png" alt="04 EC画像" /><TextImage file="note.png" alt="※納品時の商品名・店名・ロゴなどは一部改変しております" className="section-disclaimer" /></header>
-          <div className="works-grid">
-            {ecWorks.map((work) => <article className="work-tank ec-card" key={work.title}>
-              <button className="ec-card-button" onClick={() => setLightbox({ type: "image", src: work.image, title: work.title, variant: "ec" })} aria-label={`${work.title}を拡大表示`}>
-                <span className="work-image"><img src={work.image} alt="" /></span>
-                <Plate file={work.text} title={work.title} />
-              </button>
-            </article>)}
-          </div>
-        </section>
-
-        <section className="works-zone">
-          <header><TextImage file="section-video.png" alt="05 動画" /><TextImage file="note.png" alt="※納品時の商品名・店名・ロゴなどは一部改変しております" className="section-disclaimer" /></header>
-          <div className="works-grid works-grid-video">
-            {videoWorks.map((work) => <article className="work-tank video-tank" key={work.video}>
-              <div className={`inline-video-wrap ${work.cropCredit ? "inline-video-credit" : ""}`}>
-                <video ref={(node) => { inlineVideoRefs.current[work.video] = node; }} className={`video-crop ${work.cropCredit ? "video-crop-credit" : ""}`} src={work.video} poster={work.poster} controls controlsList="nofullscreen" playsInline preload="metadata" aria-label={work.title} onLoadedMetadata={(event) => { event.currentTarget.currentTime = 0; }} onCanPlay={(event) => { if (event.currentTarget.paused && event.currentTarget.currentTime > 0.01) event.currentTarget.currentTime = 0; }} />
-                <button className="video-window-button" onClick={() => openVideo(work)} aria-label={`${work.title}を画面内で拡大表示`}><TextImage file="expand.png" alt="拡大" /></button>
-              </div>
-              {work.text && <Plate file={work.text} title={work.title} />}
-            </article>)}
-          </div>
-        </section>
       </div>
 
       <footer className="works-footer"><button className="works-footer-close" onClick={closeFloor} aria-label="作品画面を閉じる" /><TextImage file="footer-brand.png" alt="KOYOMIRIUM PORTFOLIO" /></footer>
 
       {lightbox && <div className="works-lightbox" role="dialog" aria-modal="true" aria-label={lightbox.title} onMouseDown={(e) => e.target === e.currentTarget && closeLightbox()}>
         <button className="lightbox-close" onClick={closeLightbox} aria-label="閉じる" />
-        <div className={`lightbox-stage lightbox-${lightbox.type} ${lightbox.variant ? `lightbox-${lightbox.variant}` : ""} ${lightbox.cropCredit ? "lightbox-video-credit" : ""}`}>
+        <div className={`lightbox-stage lightbox-${lightbox.type} ${lightbox.variant ? `lightbox-${lightbox.variant}` : ""}`}>
           {lightbox.type === "image" && <img src={lightbox.src} alt={lightbox.title} />}
-          {lightbox.type === "video" && <video ref={expandedVideoRef} src={lightbox.src} controls controlsList="nofullscreen" autoPlay playsInline onLoadedMetadata={(event) => {
-            event.currentTarget.currentTime = lightbox.startTime ?? 0;
-            void event.currentTarget.play();
-          }} />}
-          {lightbox.type === "page" && <iframe src={lightbox.src} title={lightbox.title} />}
           {lightbox.type === "photoshop" && <article className="photoshop-detail">
             <div className="photoshop-detail-visual"><img src={lightbox.src} alt={`${lightbox.title} 完成画像`} /></div>
             <div className="photoshop-detail-copy">
