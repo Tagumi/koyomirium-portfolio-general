@@ -118,14 +118,17 @@ export default function WorksPage() {
       <div className="works-floor">
         <section className="works-zone figma-zone">
           <header><span className="figma-section-number">01</span><h2>Figma</h2><span>UI / UX IMPROVEMENT</span></header>
-          <a className="figma-card" href={figmaPortfolioUrl} target="_blank" rel="noreferrer">
-            <div>
-              <span className="figma-card-label">LINE MARKETING TOOL</span>
-              <h3>LINEマーケティングツール<br />修正デザイン案</h3>
-              <p>リッチメニュー作成の導線を見直し、現在地と完了までのステップが分かるように設計した改善案です。</p>
-            </div>
-            <span className="figma-card-cta">Figmaで見る ↗</span>
-          </a>
+          <div className="photoshop-intro figma-intro">
+            <p>LINEマーケティングツールのリッチメニュー作成導線を見直した、UI／UX改善のデザイン案です。</p>
+            <span>現在地と完了までのステップが分かるように情報を整理し、Figmaで制作しました。</span>
+          </div>
+          <div className="works-grid photoshop-grid">
+            <a className="work-tank photoshop-card figma-card" href={figmaPortfolioUrl} target="_blank" rel="noreferrer">
+              <span className="photoshop-thumb"><img src="/portfolio-assets/figma-line-marketing-tool.png" alt="LINEマーケティングツールのリッチメニュー管理画面" /></span>
+              <span className="figma-card-title">LINEマーケティングツール<br />修正デザイン案 <i>↗</i></span>
+              <small><span>リッチメニュー作成の導線・進行状況を改善</span></small>
+            </a>
+          </div>
         </section>
 
         <section className="works-zone photoshop-zone">
